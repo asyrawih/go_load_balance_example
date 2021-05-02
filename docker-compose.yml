@@ -1,6 +1,7 @@
 version: "3"
 
 services:
+  # create node 1
   api:
     image: lb_go:latest
     ports:
@@ -9,6 +10,7 @@ services:
     command: ["./main" , "3000" , "api-1"]
     networks:
       - "api.network"
+# Create node 2
   api2:
     image: lb_go:latest
     ports:
@@ -17,7 +19,7 @@ services:
     command: ["./main" , "5000" , "api-2"]
     networks:
       - "api.network"
-
+# Pull nginx images
   nginx:
     image: nginx:latest
     ports:
