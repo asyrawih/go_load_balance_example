@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  api:
+    image: lb_go:latest
+    ports:
+      - "3000:3000"
+    restart: "always"
+    command: ["./main" , "3000" , "api-1"]
+    networks:
+      - "api.network"
+  api2:
+    image: lb_go:latest
+    ports:
+      - "5000:5000"
+    restart: "always"
+    command: ["./main" , "5000" , "api-2"]
+    networks:
+      - "api.network"
+
+  nginx:
+    image: nginx:latest
+    ports:
+    - "4000:4000"
+    volumes:
+     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+         - "api.network"
+networks:
+  api.network:
